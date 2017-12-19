@@ -38,14 +38,41 @@ public class TestCase {
 	    myObject = new s4.b173365.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
-	    freq = myObject.frequency();
+        freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-	}
+	    if(4 == freq) {
+            System.out.println("OK");
+        }
+        else {
+            System.out.println("WRONG");
+        }
+        
+        // テストケース加筆部分
+        myObject.setTarget("i".getBytes());
+        freq = myObject.frequency();
+        System.out.print("\"i\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+        if(2 == freq) {
+            System.out.println("OK");
+        }
+        else {
+            System.out.println("WRONG");
+        }
+        myObject.setSpace("Alice In Wonderland".getBytes());
+        myObject.setTarget("Alice".getBytes());
+        freq = myObject.frequency();
+        System.out.print("\"Alice\" in \"Alice In Wonderland\" appears "+freq+" times. ");
+        if(1 == freq) {
+            System.out.println("OK");
+        }
+        else {
+            System.out.println("WRONG");
+        }
+        // 加筆ここまで
+    }
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
-
+        
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
@@ -70,5 +97,4 @@ public class TestCase {
 	}
 
     }
-}	    
-	    
+}
