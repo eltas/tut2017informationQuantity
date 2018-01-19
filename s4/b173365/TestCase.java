@@ -32,164 +32,43 @@ public interface InformationEstimatorInterface{
 public class TestCase {
     public static void main(String[] args) {
 	try {
-	    // FrequencerInterface  myObject;
+	    FrequencerInterface  myObject;
 	    int freq;
-	    // System.out.println("checking s4.b173365.Frequencer");
-	    // myObject = new s4.b173365.Frequencer();
-	    // myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    // myObject.setTarget("H".getBytes());
-        // freq = myObject.frequency();
-	    // System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    // if(4 == freq) {
-        //     System.out.println("OK");
-        // }
-        // else {
-        //     System.out.println("WRONG");
-        // }
-        
-        // // テストケース加筆部分
-        // myObject.setTarget("i".getBytes());
-        // freq = myObject.frequency();
-        // System.out.print("\"i\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-        // if(2 == freq) {
-        //     System.out.println("OK");
-        // }
-        // else {
-        //     System.out.println("WRONG");
-        // }
-        // myObject.setSpace("Alice In Wonderland".getBytes());
-        // myObject.setTarget("Alice".getBytes());
-        // freq = myObject.frequency();
-        // System.out.print("\"Alice\" in \"Alice In Wonderland\" appears "+freq+" times. ");
-        // if(1 == freq) {
-        //     System.out.println("OK");
-        // }
-        // else {
-        //     System.out.println("WRONG");
-        // }
-
-
-        // 加筆ここまで
-
-        // week2　加筆ここから
-        FrequencerInterface  myObject2;
-        System.out.println("week2 s4.b173365.Frequencer TARGET test");
-	    myObject2 = new s4.b173365.Frequencer();
-	    myObject2.setSpace("Hi Ho Hi Ho".getBytes());
-        freq = myObject2.frequency();
-	    System.out.print("TARGET not set: " + freq + " ");
-	    if(-1 == freq) {
-            System.out.println("OK");
-        }
-        else {
-            System.out.println("WRONG");
-        }
-        myObject2.setTarget("".getBytes());
-        freq = myObject2.frequency();
-        System.out.print("TARGET length 0: " + freq + " ");
-	    if(-1 == freq) {
-            System.out.println("OK");
-        }
-        else {
-            System.out.println("WRONG");
-        }
-
-        FrequencerInterface  myObject3;
-        System.out.println("week2 s4.b173365.Frequencer SPACE test");
-        myObject3 = new s4.b173365.Frequencer();
-        myObject3.setTarget("H".getBytes());
-        freq = myObject3.frequency();
-	    System.out.print("SPACE not set: " + freq + " ");
-	    if(0 == freq) {
-            System.out.println("OK");
-        }
-        else {
-            System.out.println("WRONG");
-        }
-        myObject3.setSpace("".getBytes());
-        freq = myObject3.frequency();
-        System.out.print("SPACE length 0: " + freq + " ");
-	    if(0 == freq) {
-            System.out.println("OK");
-        }
-        else {
-            System.out.println("WRONG");
-        }
-        //week2 ここまで
-
-
-
-    }
+	    System.out.println("checking s4.b173365.Frequencer");
+	    myObject = new s4.b173365.Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("H".getBytes());
+	    freq = myObject.frequency();
+	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
-        
+
 	try {
-
 	    InformationEstimatorInterface myObject;
-        double value;
-        // week2 ここから
-
-        InformationEstimatorInterface myObject2;
-        System.out.println("week2 s4.b173365.InformationEstimator TARGET test");
-        myObject2 = new s4.b173365.InformationEstimator();
-        myObject2.setSpace("3210321001230123".getBytes());
-        value = myObject2.estimation();
-        System.out.print("TARGET not set: " + value + " ");
-        if(0.0 == value) {
-            System.out.println("OK");
-        } else {
-            System.out.println("WRONG");
-        }
-        myObject2.setTarget("".getBytes());
-        value = myObject2.estimation();
-        System.out.print("TARGET length 0: " + value + " ");
-        if(0.0 == value) {
-            System.out.println("OK");
-        } else {
-            System.out.println("WRONG");
-        }
-
-        System.out.println("week2 s4.b173365.InformationEstimator SPACE test");
-        myObject = new s4.b173365.InformationEstimator();
-        myObject.setTarget("0".getBytes());
-        value = myObject.estimation();
-        System.out.print("SPACE not set: " + value + " ");
-        if(Double.MAX_VALUE == value) {
-            System.out.println("OK");
-        } else {
-            System.out.println("WRONG");
-        }
-        myObject.setSpace("".getBytes());
-        value = myObject.estimation();
-        System.out.print("SPACE length 0: " + value + " ");
-        if(Double.MAX_VALUE == value) {
-            System.out.println("OK");
-        } else {
-            System.out.println("WRONG");
-        }
-        // week2 ここまで
-
-        // week2 ここまで
-	    // System.out.println("checking s4.b173365.InformationEstimator");
-	    // myObject = new s4.b173365.InformationEstimator();
-	    // myObject.setSpace("3210321001230123".getBytes());
-	    // myObject.setTarget("0".getBytes());
-	    // value = myObject.estimation();
-	    // System.out.println(">0 "+value);
-	    // myObject.setTarget("01".getBytes());
-	    // value = myObject.estimation();
-	    // System.out.println(">01 "+value);
-	    // myObject.setTarget("0123".getBytes());
-	    // value = myObject.estimation();
-	    // System.out.println(">0123 "+value);
-	    // myObject.setTarget("00".getBytes());
-	    // value = myObject.estimation();
-	    // System.out.println(">00 "+value);
+	    double value;
+	    System.out.println("checking s4.b173365.InformationEstimator");
+	    myObject = new s4.b173365.InformationEstimator();
+	    myObject.setSpace("3210321001230123".getBytes());
+	    myObject.setTarget("0".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0 "+value);
+	    myObject.setTarget("01".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">01 "+value);
+	    myObject.setTarget("0123".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">0123 "+value);
+	    myObject.setTarget("00".getBytes());
+	    value = myObject.estimation();
+	    System.out.println(">00 "+value);
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
 
     }
-}
+}	    
+	    
