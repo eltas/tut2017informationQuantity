@@ -1,9 +1,6 @@
 package s4.b173365; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.lang.*;
 
 
 public class Frequencer implements FrequencerInterface{
@@ -63,46 +60,35 @@ private void printSuffixArray() {
         for(int i = 0; i< space.length; i++) {
             suffixArray[i] = i;
         }
-//        for(int i = 0; i < mySpace.length; i++){
-//            for(int j = i + 1; j < mySpace.length; j++){
-//                if(suffixCompare(i, j) == 1){
-//                    int tmp = suffixArray[i];
-//                    suffixArray[i] = suffixArray[j];
-//                    suffixArray[j] = tmp;
-//                }
-//            }
-//        }
-//
-//        printSuffixArray();
-        
         quickSort(suffixArray, 0, suffixArray.length-1);
-        printSuffixArray();
     }
     
     public int[] quickSort(int[] arr, int left, int right) {
-        if(left<=right) {
-            int l = left;
-            int r = right;
-            while(l <= r) {
-                while(suffixCompare(l, (left+right)/2) == -1) l++;
-                while(suffixCompare(r, (left+right)/2) == 1) r--;
-                
-                if(l <= r) {
-                    int tmp = arr[l];
-                    arr[l] = arr[r];
-                    arr[r] = tmp;
-                    l++;
-                    r--;
+         if(left<right) {
+            int i = 1;
+            int r = right - 1;
+            int p = right;
+            while(left <= r) {
+                if((suffixCompare(r, p) == 1)) {
+                    if((p-i)!=r) {
+                        int tmp = arr[p-i];
+                        arr[p-i] = arr[r];
+                        arr[r] = tmp;
+                    }
+                    i++;
                 }
+                r--;
             }
-            
-            if (left < r) quickSort(arr, left, r);
-            if (l < right) quickSort(arr, l, right);
+            int tmp = arr[p];
+            arr[p] = arr[p-i+1];
+            arr[p-i+1] = tmp;
+            if(left < (p-i)) quickSort(arr, left, p-i);
+            if((p-i+2) < right) quickSort(arr, p-i+2, right);
         }
         return arr;
     }
 
-private int targetCompare(int i, int j, int end) {
+private int targetCompare(int i, int start, int end) {
 // comparing suffix_i and target_j_end by dictonary order with limitation of length; 
 // if the beginning of suffix_i matches target_i_end, and suffix is longer than target it returns 0; 
 // if suffix_i > target_i_end it return 1;
@@ -119,17 +105,22 @@ private int targetCompare(int i, int j, int end) {
 // "Ho" = "Ho"
 //"Ho" < "Ho":"Ho"isnotintheheadofsuffix"Ho"
 // "Ho" = "H" : "H" is in the head of suffix "Ho"
-    
-    int si = suffixArray[i];
-    int s = 0;
-    if(si > s) s = si;
-    int n = mySpace.length - s;
-    if(n > end) n = end; // endはTargetの長さ
-    for(int k = 0; k < n; k++){
-        if(mySpace[si+k] > myTarget[k]) return 1;
-        if(mySpace[si+k] < myTarget[k]) return -1;
+    if (i < 0) {
+        return -1;
     }
-    if(n < end) return -1;
+	else if (i > mySpace.length - 1) { 
+        return 1;
+    }    
+
+    int si = suffixArray[i];
+
+    int n = mySpace.length - si;
+    if(n > (end - start) ) n = end - start; // endはTargetの長さ
+    for(int k = 0; k < n; k++){
+        if(mySpace[si+k] > myTarget[start+k]) return 1;
+        if(mySpace[si+k] < myTarget[start+k]) return -1;
+    }
+    if(n < end - start) return -1;
     return 0;
 }
 private int subByteStartIndex(int start, int end) { 
@@ -137,22 +128,20 @@ private int subByteStartIndex(int start, int end) {
 // not implemented yet;
 // For "Ho", it will return 5 for "Hi Ho Hi Ho".
 // For "Ho ", it will return 6 for "Hi Ho Hi Ho".
-    
-//    for(int i = 0; i < suffixArray.length; i++){
-//        int temp = targetCompare(i,start,end);
-//        if(temp == 0) return i;
-//    }
     int pLeft = 0;
     int pRight = suffixArray.length-1;
     do{
         int center = (pLeft + pRight)/2;
         if (targetCompare(center,start,end) == 0 ) {
-            while(targetCompare(center-1,start,end) == 0) center--;
+            while(targetCompare(center-1,start,end) == 0 ) center--;
             return center;
         } else if (targetCompare(center,start,end) == -1){
             pLeft = center+1;
+        } else {
+            pRight = center-1;
         }
     }while (pLeft <= pRight);
+    
     return suffixArray.length;
 }
 private int subByteEndIndex(int start, int end) {
@@ -165,18 +154,16 @@ private int subByteEndIndex(int start, int end) {
         int center = (pLeft + pRight) / 2;
         if (targetCompare(center,start,end) == 0) {
             while(targetCompare(center+1,start,end) == 0) center++;
-            return center;
+            return center+1;
         } else if (targetCompare(center,start,end) == 1){
             pRight = center-1;
+        } else {
+            pLeft = center+1;
         }
     }while (pLeft <= pRight);
-//    for(int i = 0; i < suffixArray.length; i++){
-//        int temp = targetCompare(i,start,end);
-//        if(temp == 1) return i;
-//    }
     
     return suffixArray.length;
-} 
+}
 public int subByteFrequency(int start, int end) {
 /* This method could be defined as follows though it is slow.
 int spaceLength = mySpace.length;
@@ -191,7 +178,7 @@ if(abort == false) { count++; } }
     int first = subByteStartIndex(start,end);
     int last1 = subByteEndIndex(start, end);
     
-    return last1 - first + 1;
+    return last1 - first;
 } 
 public void setTarget(byte [] target) { 
    myTarget = target;
